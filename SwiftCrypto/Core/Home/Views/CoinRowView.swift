@@ -27,7 +27,7 @@ struct CoinRowView: View {
 
 
 #Preview(traits: .sizeThatFitsLayout) {
-    CoinRowView(coin: MockData.previewModel, showHoldingsColumn: true)
+    CoinRowView(coin: PreviewProvider.dev.coin, showHoldingsColumn: true)
         .preferredColorScheme(.dark)
 }
 
