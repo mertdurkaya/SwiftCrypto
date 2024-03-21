@@ -33,14 +33,22 @@ struct CoinRowView: View {
 
 extension CoinRowView {
     private var leftColumn: some View {
-        
         HStack(spacing: 0) {
             Text("\(coin.rank)")
                 .font(.caption)
                 .foregroundColor(Color.theme.secondaryText)
                 .frame(minWidth: 32)
-            Circle()
-                .frame(width: 32, height: 32)
+//            Circle()
+//                .frame(width: 32, height: 32)
+//            
+            AsyncImage(url: URL(string: coin.image)) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 32, height: 32)
+            } placeholder: {
+                ProgressView()
+            }
             
             Text(coin.symbol.uppercased())
                 .font(.headline)
