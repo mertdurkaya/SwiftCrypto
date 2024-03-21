@@ -21,6 +21,7 @@
 		4E2733742BAA1B2A00A8F258 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2733732BAA1B2A00A8F258 /* HomeViewModel.swift */; };
 		4E2733762BAA1C2400A8F258 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2733752BAA1C2400A8F258 /* PreviewProvider.swift */; };
 		4E2733792BAC7F8700A8F258 /* CoinDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2733782BAC7F8700A8F258 /* CoinDataService.swift */; };
+		4E27337C2BAC8D2300A8F258 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E27337B2BAC8D2300A8F258 /* NetworkingManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		4E2733732BAA1B2A00A8F258 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4E2733752BAA1C2400A8F258 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		4E2733782BAC7F8700A8F258 /* CoinDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDataService.swift; sourceTree = "<group>"; };
+		4E27337B2BAC8D2300A8F258 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		4E23F5B22BA325F500F9EE6B /* SwiftCrypto */ = {
 			isa = PBXGroup;
 			children = (
+				4E27337A2BAC8D0D00A8F258 /* Utils */,
 				4E23F5CA2BA3298D00F9EE6B /* App */,
 				4E23F5C42BA3296800F9EE6B /* Core */,
 				4E23F5C12BA327DC00F9EE6B /* Extensions */,
@@ -177,6 +180,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		4E27337A2BAC8D0D00A8F258 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4E27337B2BAC8D2300A8F258 /* NetworkingManager.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -255,6 +266,7 @@
 				4E23F5B42BA325F500F9EE6B /* SwiftCryptoApp.swift in Sources */,
 				4E23F5CE2BA32AC700F9EE6B /* CircleButtonView.swift in Sources */,
 				4E2733762BAA1C2400A8F258 /* PreviewProvider.swift in Sources */,
+				4E27337C2BAC8D2300A8F258 /* NetworkingManager.swift in Sources */,
 				4E23F5C32BA327E900F9EE6B /* Color.swift in Sources */,
 				4E23F5D02BA333A400F9EE6B /* CircleButtonAnimationView.swift in Sources */,
 				4E2733722BA9E75B00A8F258 /* Double.swift in Sources */,
