@@ -38,18 +38,8 @@ extension CoinRowView {
                 .font(.caption)
                 .foregroundColor(Color.theme.secondaryText)
                 .frame(minWidth: 32)
-//            Circle()
-//                .frame(width: 32, height: 32)
-//            
-            AsyncImage(url: URL(string: coin.image)) { image in
-                image
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 32, height: 32)
-            } placeholder: {
-                ProgressView()
-            }
-            
+            CoinImageView(coin: coin)
+                .frame(width: 32, height: 32)
             Text(coin.symbol.uppercased())
                 .font(.headline)
                 .padding(.leading, 6)
