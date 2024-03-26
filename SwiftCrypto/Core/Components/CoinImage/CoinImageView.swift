@@ -34,5 +34,4 @@ struct CoinImageView: View {
 
 #Preview(traits: .sizeThatFitsLayout) {
     CoinImageView(coin: PreviewProvider.dev.coin)
-        .padding()
 }
