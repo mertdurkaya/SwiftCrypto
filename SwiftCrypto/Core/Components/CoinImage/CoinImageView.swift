@@ -32,6 +32,8 @@ struct CoinImageView: View {
     }
 }
 
-#Preview(traits: .sizeThatFitsLayout) {
-    CoinImageView(coin: PreviewProvider.dev.coin)
+struct CoinImageView_Previews: PreviewProvider {
+    static var previews: some View {
+        CoinImageView(coin: dev.coin)
+    }
 }

@@ -26,9 +26,17 @@ struct CoinRowView: View {
 }
 
 
-#Preview(traits: .sizeThatFitsLayout) {
-    CoinRowView(coin: PreviewProvider.dev.coin, showHoldingsColumn: true)
-        .preferredColorScheme(.dark)
+struct CoinRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            CoinRowView(coin: dev.coin, showHoldingsColumn: true)
+                .previewLayout(.sizeThatFits)
+                .preferredColorScheme(.dark)
+            CoinRowView(coin: dev.coin, showHoldingsColumn: true)
+                .previewLayout(.sizeThatFits)
+                .preferredColorScheme(.light)
+        }
+    }
 }
 
 extension CoinRowView {

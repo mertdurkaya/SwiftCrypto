@@ -19,6 +19,7 @@ struct HomeView: View {
             
             VStack {
                 homeHeader
+                HomeStatsView(showPortfolio: $showPortfolio)
                 SearchBarView(searchText: $vm.searchText)
                 colums
 
@@ -38,11 +39,11 @@ struct HomeView: View {
     }
 }
 
-#Preview {
-    NavigationStack {
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
         HomeView()
             .toolbar(.hidden, for: ToolbarPlacement.navigationBar)
-            .environmentObject(PreviewProvider.dev.homeVM)
+            .environmentObject(dev.homeVM)
     }
 }
 
