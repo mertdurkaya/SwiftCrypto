@@ -44,6 +44,8 @@ struct SearchBarView: View {
     }
 }
 
-#Preview {
-    SearchBarView(searchText: .constant(""))
+struct SearchBarView_Previews: PreviewProvider {
+    static var previews: some View {
+        SearchBarView(searchText: .constant(""))
+    }
 }
