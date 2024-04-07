@@ -37,6 +37,13 @@ struct PortfolioView: View {
                     trailingNavBarButton
                 }
             }
+            .onChange(of: vm.searchText) { _, newValue in
+                if newValue == "" {
+                    withAnimation(.easeIn) {
+                        removeSelectedCoin()
+                    }
+                }
+            }
         }
     }
 }
@@ -52,12 +59,12 @@ extension PortfolioView {
     private var coinLogoList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 10) {
-                ForEach(vm.allCoins) { coin in
+                ForEach(vm.searchText.isEmpty && !vm.portfolioCoins.isEmpty ? vm.portfolioCoins : vm.allCoins) { coin in
                     CoinLogoView(coin: coin)
                         .frame(width: 75)
                         .onTapGesture {
                             withAnimation(.easeIn) {
-                                selectedCoin = coin
+                                updateSelectedCoin(coin: coin)
                             }
                         }
                         .background(
@@ -71,6 +78,17 @@ extension PortfolioView {
             .frame(height: 120)
             .padding(.vertical, 4)
             .padding(.leading)
+        }
+    }
+    
+    private func updateSelectedCoin(coin: CoinModel) {
+        selectedCoin = coin
+        
+        if let portfolioCoin = vm.portfolioCoins.first(where: { $0.id == coin.id }) {
+            let amount = portfolioCoin.currentHoldings
+            quantityText = "\(amount ?? 0)"
+        } else {
+            quantityText = ""
         }
     }
     
@@ -129,9 +147,7 @@ extension PortfolioView {
               let amount = Double(quantityText) else { return }
         
         // save portfolio
-        
-        
-        
+        vm.updatePortfolio(coin: coin, amount: amount)
         
         // show checkmark
         withAnimation {
@@ -147,7 +163,6 @@ extension PortfolioView {
             withAnimation {
                 showCheckmark = false
             }
-            
         }
     }
     
