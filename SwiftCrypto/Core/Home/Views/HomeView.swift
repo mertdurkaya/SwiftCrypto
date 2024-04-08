@@ -41,6 +41,9 @@ struct HomeView: View {
                 Spacer()
             }
         }
+        .refreshable {
+            vm.reloadData()
+        }
     }
 }
 
@@ -83,7 +86,14 @@ extension HomeView {
         List {
             ForEach(vm.allCoins) { coin in
                 CoinRowView(coin: coin, showHoldingsColumn: false)
-                    .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                    .listRowInsets(
+                        .init(
+                            top: 10,
+                            leading: 0,
+                            bottom: 10,
+                            trailing: 10
+                        )
+                    )
             }
         }
         .listStyle(.plain)
@@ -93,7 +103,14 @@ extension HomeView {
         List {
             ForEach(vm.portfolioCoins) { coin in
                 CoinRowView(coin: coin, showHoldingsColumn: true)
-                    .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                    .listRowInsets(
+                        .init(
+                            top: 10,
+                            leading: 0,
+                            bottom: 10,
+                            trailing: 10
+                        )
+                    )
             }
         }
         .listStyle(.plain)
@@ -107,7 +124,23 @@ extension HomeView {
                 Text("Holdings")
             }
             Text("Price")
-                .frame(width: UIScreen.main.bounds.width / 3.5, alignment: .trailing)
+                .frame(
+                    width: UIScreen.main.bounds.width / 3.5,
+                    alignment: .trailing
+                )
+            
+            Button {
+                withAnimation(.bouncy) {
+                    vm.reloadData()
+                }
+            } label: {
+                Image(systemName: "goforward")
+            }
+            .rotationEffect(
+                Angle(degrees: vm.isLoading ? 360 : 0),
+                anchor: .center
+            )
+
         }
         .font(.caption)
         .foregroundColor(Color.theme.secondaryText)
