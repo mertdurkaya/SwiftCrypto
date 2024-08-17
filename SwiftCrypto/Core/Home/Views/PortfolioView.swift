@@ -27,6 +27,7 @@ struct PortfolioView: View {
                     }
                 }
             }
+            .background(Color.theme.background.ignoresSafeArea())
             .navigationTitle("Edit Portfolio")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -71,6 +72,7 @@ extension PortfolioView {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(selectedCoin?.id == coin.id ? Color.theme.green : Color.clear,
                                         lineWidth: 1)
+                                .padding(-4)
                         )
                     
                 }

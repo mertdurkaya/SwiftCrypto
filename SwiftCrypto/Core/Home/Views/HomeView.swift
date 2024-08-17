@@ -12,7 +12,7 @@ struct HomeView: View {
     @State private var showPortfolio: Bool = false
     @EnvironmentObject private var vm: HomeViewModel
     @State private var showPortfolioView: Bool = false
-    
+    @State private var showSettingsView: Bool = false
     @State private var selectedCoin: CoinModel? = nil
     @State private var showDetailView: Bool = false
     
@@ -37,13 +37,22 @@ struct HomeView: View {
                 }
                 
                 if showPortfolio {
-                    portfolioList
-                        .transition(.move(edge: .trailing))
+                    ZStack(alignment: .top) {
+                        if vm.portfolioCoins.isEmpty && vm.searchText.isEmpty {
+                            portfolioEmptyText
+                        } else {
+                            portfolioList
+                        }
+                    }
+                    .transition(.move(edge: .trailing))
                 }
-                
                 Spacer()
             }
+            .sheet(isPresented: $showSettingsView, content: {
+                SettingsView()
+            })
         }
+        .ignoresSafeArea(edges: .bottom)
         .background(
             NavigationLink(
                 destination: DetailLoadingView(coin: $selectedCoin),
@@ -73,7 +82,7 @@ extension HomeView {
                 .onTapGesture {
                     if showPortfolio {
                         showPortfolioView.toggle()
-                    }
+                    } else { showSettingsView.toggle() }
                 }
                 .background(CircleButtonAnimationView(animate: $showPortfolio))
             Spacer()
@@ -102,6 +111,7 @@ extension HomeView {
                     .onTapGesture {
                         segue(coin: coin)
                     }
+                    .listRowBackground(Color.theme.background)
             }
         }
         .listStyle(.plain)
@@ -116,10 +126,21 @@ extension HomeView {
                     .onTapGesture {
                         segue(coin: coin)
                     }
+                    .listRowBackground(Color.theme.background)
             }
         }
         .listStyle(.plain)
     }
+    
+    private var portfolioEmptyText: some View {
+        Text("You haven't added any coins to your portfolio yet. Tap the ➕ button to get started!")
+            .foregroundColor(Color.theme.accent)
+            .font(.system(size: 18, weight: .medium, design: .monospaced))
+            .fontWeight(.medium)
+            .multilineTextAlignment(.center)
+            .padding(50)
+    }
+    
     
     private func segue(coin: CoinModel) {
         selectedCoin = coin
