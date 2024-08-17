@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct PortfolioView: View {
-    
     @EnvironmentObject private var vm: HomeViewModel
     @State private var selectedCoin: CoinModel? = nil
     @State private var quantityText: String = ""
     @State private var showCheckmark: Bool = false
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -21,7 +20,7 @@ struct PortfolioView: View {
                     SearchBarView(searchText: $vm.searchText)
                         .padding()
                     coinLogoList
-                    
+
                     if selectedCoin != nil {
                         portfolioInputSection
                     }
@@ -33,7 +32,7 @@ struct PortfolioView: View {
                 ToolbarItem(placement: .cancellationAction) {
                     XMarkButton()
                 }
-                
+
                 ToolbarItem(placement: .confirmationAction) {
                     trailingNavBarButton
                 }
@@ -74,7 +73,6 @@ extension PortfolioView {
                                         lineWidth: 1)
                                 .padding(-4)
                         )
-                    
                 }
             }
             .frame(height: 120)
@@ -82,10 +80,10 @@ extension PortfolioView {
             .padding(.leading)
         }
     }
-    
+
     private func updateSelectedCoin(coin: CoinModel) {
         selectedCoin = coin
-        
+
         if let portfolioCoin = vm.portfolioCoins.first(where: { $0.id == coin.id }) {
             let amount = portfolioCoin.currentHoldings
             quantityText = "\(amount ?? 0)"
@@ -93,7 +91,7 @@ extension PortfolioView {
             quantityText = ""
         }
     }
-    
+
     private var portfolioInputSection: some View {
         VStack(spacing: 20) {
             HStack {
@@ -119,14 +117,14 @@ extension PortfolioView {
         .animation(.none, value: 0)
         .padding()
     }
-    
+
     private func getCurrentValue() -> Double {
         if let quantity = Double(quantityText) {
             return (selectedCoin?.currentPrice ?? 0) * quantity
         }
         return 0
     }
-    
+
     private var trailingNavBarButton: some View {
         Button(action: {
             saveButtonPressed()
@@ -141,33 +139,31 @@ extension PortfolioView {
             .font(.headline)
         })
     }
-    
-    
-    
+
     private func saveButtonPressed() {
         guard let coin = selectedCoin,
               let amount = Double(quantityText) else { return }
-        
+
         // save portfolio
         vm.updatePortfolio(coin: coin, amount: amount)
-        
+
         // show checkmark
         withAnimation {
             showCheckmark = true
             removeSelectedCoin()
         }
-        
+
         // hide keyboard
         UIApplication.shared.endEditing()
-        
-        //hide checkmark
+
+        // hide checkmark
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             withAnimation {
                 showCheckmark = false
             }
         }
     }
-    
+
     private func removeSelectedCoin() {
         selectedCoin = nil
         vm.searchText = ""

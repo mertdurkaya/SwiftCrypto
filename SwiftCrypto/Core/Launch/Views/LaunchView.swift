@@ -8,20 +8,19 @@
 import SwiftUI
 
 struct LaunchView: View {
-    
     @State private var loadingText: [String] = "Loading portfolio...".map { String($0) }
     @State private var showLoadingText: Bool = false
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-    
+
     @State private var counter = 0
     @State private var loops: Int = 0
     @Binding var showLaunchView: Bool
-    
+
     var body: some View {
         ZStack {
             Color.launch.background
                 .ignoresSafeArea()
-            
+
             Image("logo-transparent")
                 .resizable()
                 .scaledToFit()
@@ -67,5 +66,4 @@ struct LaunchView: View {
 
 #Preview {
     LaunchView(showLaunchView: .constant(true))
-        
 }

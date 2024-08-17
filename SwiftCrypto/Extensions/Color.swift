@@ -25,4 +25,3 @@ struct LaunchTheme {
     let accent = Color("LaunchAccentColor")
     let background = Color("LaunchBackgroundColor")
 }
-

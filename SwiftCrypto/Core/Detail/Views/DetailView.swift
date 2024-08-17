@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct DetailLoadingView: View {
-    
     @Binding var coin: CoinModel?
-    
+
     var body: some View {
         ZStack {
             if let coin = coin {
@@ -21,20 +20,19 @@ struct DetailLoadingView: View {
 }
 
 struct DetailView: View {
-    
     @StateObject private var vm: DetailViewModel
     @State private var showFullDescription: Bool = false
     private let columns: [GridItem] = [
         GridItem(.flexible()),
-        GridItem(.flexible())
+        GridItem(.flexible()),
     ]
-    
+
     private let spacing: CGFloat = 30
-    
+
     init(coin: CoinModel) {
         _vm = StateObject(wrappedValue: DetailViewModel(coin: coin))
     }
-    
+
     var body: some View {
         ScrollView {
             VStack {
@@ -49,8 +47,7 @@ struct DetailView: View {
                     Divider()
                     additionalGrid
                     websiteSection
-                    
-            }
+                }
             }
             .padding()
         }
@@ -73,7 +70,6 @@ struct DetailView_Previews: PreviewProvider {
 }
 
 extension DetailView {
-    
     private var navigationBarTrailingItems: some View {
         HStack {
             Text(vm.coin.symbol.uppercased())
@@ -83,7 +79,7 @@ extension DetailView {
                 .frame(width: 25, height: 25)
         }
     }
-    
+
     private var overviewTitle: some View {
         Text("Overview")
             .font(.title)
@@ -91,7 +87,7 @@ extension DetailView {
             .foregroundStyle(Color.theme.accent)
             .frame(maxWidth: .infinity, alignment: .leading)
     }
-    
+
     private var additionalTitle: some View {
         Text("Additional Details")
             .font(.title)
@@ -99,29 +95,31 @@ extension DetailView {
             .foregroundStyle(Color.theme.accent)
             .frame(maxWidth: .infinity, alignment: .leading)
     }
-    
+
     private var overviewGrid: some View {
         LazyVGrid(columns: columns,
                   alignment: .leading,
                   spacing: spacing,
-                  pinnedViews: []) {
+                  pinnedViews: [])
+        {
             ForEach(vm.overviewStatistics) { stat in
                 StatisticView(stat: stat)
             }
         }
     }
-    
+
     private var additionalGrid: some View {
         LazyVGrid(columns: columns,
                   alignment: .leading,
                   spacing: spacing,
-                  pinnedViews: []) {
+                  pinnedViews: [])
+        {
             ForEach(vm.additionalStatistics) { stat in
                 StatisticView(stat: stat)
             }
         }
     }
-    
+
     private var descriptionSection: some View {
         ZStack {
             if let coinDescription = vm.coinDescription, !coinDescription.isEmpty {
@@ -146,7 +144,7 @@ extension DetailView {
             }
         }
     }
-    
+
     private var websiteSection: some View {
         HStack(spacing: 20) {
             if let websiteURL = vm.websiteURL, let url = URL(string: websiteURL) {
@@ -154,9 +152,9 @@ extension DetailView {
                     .font(.headline)
                     .foregroundColor(.blue)
             }
-            
+
             Spacer()
-            
+
             if let redditURL = vm.redditURL, let url = URL(string: redditURL) {
                 Link("Reddit", destination: url)
                     .font(.headline)

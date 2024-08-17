@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct SettingsView: View {
-    
     let defaultURL = URL(string: "https://www.google.com")!
     let youtubeURL = URL(string: "https://www.youtube.com/c/swiftfulthinking")!
     let coffeeURL = URL(string: "https://www.buymeacoffee.com/mertdurkaya")!
     let coinGeckoURL = URL(string: "https://www.coingecko.com")!
     let personalURL = URL(string: "https://www.mertdurkaya.com")!
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -47,7 +46,7 @@ struct SettingsView_Previews: PreviewProvider {
 extension SettingsView {
     private var appSection: some View {
         Section(content: {
-            HStack() {
+            HStack {
                 Image("logo")
                     .resizable()
                     .scaledToFit()
@@ -55,7 +54,7 @@ extension SettingsView {
                     .clipShape(Circle())
                     .shadow(radius: 10)
                     .padding()
-                
+
                 VStack(alignment: .leading) {
                     Text("SwiftCrypto")
                         .font(.title2)
@@ -78,7 +77,7 @@ extension SettingsView {
                 .bold()
         })
     }
-    
+
     private var linkSection: some View {
         Section(content: {
             Link("Swiftful Thinking YouTube ", destination: youtubeURL)
@@ -91,7 +90,7 @@ extension SettingsView {
         })
         .font(.subheadline)
     }
-    
+
     private var coinGeckoSection: some View {
         Section(content: {
             HStack {
@@ -104,7 +103,7 @@ extension SettingsView {
                     .font(.caption)
                     .foregroundColor(.theme.secondaryText)
             }
-            
+
             Link("Visit CoinGecko", destination: coinGeckoURL)
         }, header: {
             Text("Data provided by")

@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct StatisticView: View {
-    
     let stat: StatisticModel
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(stat.title)
@@ -27,7 +26,6 @@ struct StatisticView: View {
             .bold()
             .foregroundStyle(stat.percentageChange ?? 0 >= 0 ? Color.theme.green : Color.theme.red)
             .opacity(stat.percentageChange == nil ? 0 : 1)
-            
         }
     }
 }

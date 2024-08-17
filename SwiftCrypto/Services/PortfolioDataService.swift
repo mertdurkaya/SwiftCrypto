@@ -5,17 +5,16 @@
 //  Created by Mert Durkaya on 07/04/2024.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 class PortfolioDataService {
-    
     private let container: NSPersistentContainer
     private let containerName: String = "PortfolioContainer"
     private let entityName: String = "PortfolioEntity"
-    
+
     @Published var savedEntities: [PortfolioEntity] = []
-    
+
     init() {
         container = NSPersistentContainer(name: containerName)
         container.loadPersistentStores { _, error in
@@ -25,9 +24,9 @@ class PortfolioDataService {
             self.getPortfolio()
         }
     }
-    
+
     // MARK: - PUBLIC
-    
+
     func updatePortfolio(coin: CoinModel, amount: Double) {
         if let entity = savedEntities.first(where: { $0.coinID == coin.id }) {
             if amount > 0 {
@@ -39,10 +38,9 @@ class PortfolioDataService {
             add(coin: coin, amount: amount)
         }
     }
-    
-    
+
     // MARK: - PRIVATE
-    
+
     private func getPortfolio() {
         let request = NSFetchRequest<PortfolioEntity>(entityName: entityName)
         do {
@@ -51,24 +49,24 @@ class PortfolioDataService {
             print("Error fetching portfolio entities! \(error)")
         }
     }
-    
+
     private func add(coin: CoinModel, amount: Double) {
         let entity = PortfolioEntity(context: container.viewContext)
         entity.coinID = coin.id
         entity.amount = amount
         applyChanges()
     }
-    
+
     private func update(entity: PortfolioEntity, amount: Double) {
         entity.amount = amount
         applyChanges()
     }
-    
+
     private func remove(entity: PortfolioEntity) {
         container.viewContext.delete(entity)
         applyChanges()
     }
-    
+
     private func save() {
         do {
             try container.viewContext.save()
@@ -77,7 +75,7 @@ class PortfolioDataService {
             print("Error saving portfolio entity! \(error)")
         }
     }
-    
+
     private func applyChanges() {
         save()
         getPortfolio()

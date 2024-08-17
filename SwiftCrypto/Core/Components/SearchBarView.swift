@@ -8,18 +8,16 @@
 import SwiftUI
 
 struct SearchBarView: View {
-    
     @Binding var searchText: String
-    
+
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(searchText.isEmpty ? Color.theme.secondaryText : Color.theme.accent)
-            
+
             TextField("Search by name or symbol", text: $searchText)
                 .foregroundStyle(Color.theme.accent)
                 .autocorrectionDisabled(true)
-//            FIXME: - decrecated, fix new
                 .overlay(
                     Image(systemName: "xmark.circle.fill")
                         .padding()
@@ -29,8 +27,8 @@ struct SearchBarView: View {
                         .onTapGesture {
                             UIApplication.shared.endEditing()
                             searchText = ""
-                        }
-                    , alignment: .trailing
+                        },
+                    alignment: .trailing
                 )
         }
         .font(.headline)

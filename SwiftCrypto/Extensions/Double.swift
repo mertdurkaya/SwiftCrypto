@@ -8,13 +8,11 @@
 import Foundation
 
 extension Double {
-    
-    
     /// Converts a Double into a Currency with 2 decimal places
     /// ```
     /// Convert 1234.56 -> $1,234.56
     /// ```
-    private var currencyFormatter2 : NumberFormatter {
+    private var currencyFormatter2: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.usesGroupingSeparator = true
         formatter.numberStyle = .currency
@@ -22,7 +20,7 @@ extension Double {
         formatter.maximumFractionDigits = 2
         return formatter
     }
-    
+
     /// Converts a Double into a Currency as String with 2 decimal places
     /// ```
     /// Convert 1234.56 -> "$1,234.56"
@@ -31,7 +29,7 @@ extension Double {
         let number = NSNumber(value: self)
         return currencyFormatter2.string(from: number) ?? "$0.00"
     }
-    
+
     /// Converts a Double into a Currency with 2-6 decimal places
     /// ```
     /// Convert 1234.56 -> $1,234.56
@@ -40,7 +38,7 @@ extension Double {
     /// Convert 123456 -> $123456.00
     /// Convert 123456.789 -> $123456.789
     /// ```
-    private var currencyFormatter6 : NumberFormatter {
+    private var currencyFormatter6: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.usesGroupingSeparator = true
         formatter.numberStyle = .currency
@@ -48,7 +46,7 @@ extension Double {
         formatter.maximumFractionDigits = 6
         return formatter
     }
-    
+
     /// Converts a Double into a Currency as String with 2-6 decimal places
     /// ```
     /// Convert 1234.56 -> "$1,234.56"
@@ -61,8 +59,7 @@ extension Double {
         let number = NSNumber(value: self)
         return currencyFormatter6.string(from: number) ?? "$0.00"
     }
-    
-    
+
     /// Converts a Double into a String representation
     /// ```
     /// Convert 1.2345 -> "1.23"
@@ -70,7 +67,7 @@ extension Double {
     func asNumberString() -> String {
         return String(format: "%.2f", self)
     }
-    
+
     /// Converts a Double into a String representation with percent
     /// ```
     /// Convert 1.2345 -> "1.23%"
@@ -78,11 +75,11 @@ extension Double {
     func asPercentString() -> String {
         return asNumberString() + "%"
     }
-    
+
     func formattedWithAbbreviations() -> String {
         let num = abs(Double(self))
         let sign = (self < 0) ? "-" : ""
-        
+
         switch num {
         case 1_000_000_000_000...:
             return sign + (num / 1_000_000_000_000).asNumberString() + "Tr"
@@ -90,11 +87,10 @@ extension Double {
             return sign + (num / 1_000_000_000).asNumberString() + "B"
         case 1_000_000...:
             return sign + (num / 1_000_000).asNumberString() + "M"
-        case 1_000...:
-            return sign + (num / 1_000).asNumberString() + "K"
+        case 1000...:
+            return sign + (num / 1000).asNumberString() + "K"
         case 0...:
-            return sign + self.asNumberString()
-            
+            return sign + asNumberString()
         default:
             return "\(sign)\(self)"
         }

@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct HomeView: View {
-    
     @State private var showPortfolio: Bool = false
     @EnvironmentObject private var vm: HomeViewModel
     @State private var showPortfolioView: Bool = false
     @State private var showSettingsView: Bool = false
     @State private var selectedCoin: CoinModel? = nil
     @State private var showDetailView: Bool = false
-    
+
     var body: some View {
         ZStack {
             Color.theme.background
@@ -24,18 +23,18 @@ struct HomeView: View {
                     PortfolioView()
                         .environmentObject(vm)
                 })
-            
+
             VStack {
                 homeHeader
                 HomeStatsView(showPortfolio: $showPortfolio)
                 SearchBarView(searchText: $vm.searchText)
                 colums
-                
+
                 if !showPortfolio {
                     allCoinsList
                         .transition(.move(edge: .leading))
                 }
-                
+
                 if showPortfolio {
                     ZStack(alignment: .top) {
                         if vm.portfolioCoins.isEmpty && vm.searchText.isEmpty {
@@ -59,7 +58,8 @@ struct HomeView: View {
                 isActive: $showDetailView,
                 label: {
                     EmptyView()
-                })
+                }
+            )
         )
         .refreshable {
             vm.reloadData()
@@ -101,7 +101,7 @@ extension HomeView {
         }
         .padding(.horizontal)
     }
-    
+
     private var allCoinsList: some View {
         List {
             ForEach(vm.allCoins) { coin in
@@ -116,7 +116,7 @@ extension HomeView {
         }
         .listStyle(.plain)
     }
-    
+
     private var portfolioList: some View {
         List {
             ForEach(vm.portfolioCoins) { coin in
@@ -131,7 +131,7 @@ extension HomeView {
         }
         .listStyle(.plain)
     }
-    
+
     private var portfolioEmptyText: some View {
         Text("You haven't added any coins to your portfolio yet. Tap the ➕ button to get started!")
             .foregroundColor(Color.theme.accent)
@@ -140,13 +140,12 @@ extension HomeView {
             .multilineTextAlignment(.center)
             .padding(50)
     }
-    
-    
+
     private func segue(coin: CoinModel) {
         selectedCoin = coin
         showDetailView.toggle()
     }
-    
+
     private var colums: some View {
         HStack {
             HStack(spacing: 4) {
@@ -160,13 +159,13 @@ extension HomeView {
                     vm.sortOption = vm.sortOption == .rank ? .rankReversed : .rank
                 }
             }
-            
+
             Spacer()
             if showPortfolio {
                 HStack(spacing: 4) {
                     Text("Holdings")
                     Image(systemName: "chevron.down")
-                        .opacity(vm.sortOption == .holdings || vm.sortOption == .holdingsReversed ? 1 : 0)            
+                        .opacity(vm.sortOption == .holdings || vm.sortOption == .holdingsReversed ? 1 : 0)
                         .rotationEffect(Angle(degrees: vm.sortOption == .holdings ? 0 : 180))
                 }
                 .onTapGesture {
@@ -175,7 +174,7 @@ extension HomeView {
                     }
                 }
             }
-            
+
             HStack(spacing: 4) {
                 Text("Price")
                 Image(systemName: "chevron.down")
@@ -191,7 +190,7 @@ extension HomeView {
                     vm.sortOption = vm.sortOption == .price ? .priceReversed : .price
                 }
             }
-            
+
             Button {
                 withAnimation(.bouncy) {
                     vm.reloadData()
@@ -203,7 +202,6 @@ extension HomeView {
                 Angle(degrees: vm.isLoading ? 360 : 0),
                 anchor: .center
             )
-            
         }
         .font(.caption)
         .foregroundColor(Color.theme.secondaryText)
