@@ -52,15 +52,11 @@ struct HomeView: View {
             })
         }
         .ignoresSafeArea(edges: .bottom)
-        .background(
-            NavigationLink(
-                destination: DetailLoadingView(coin: $selectedCoin),
-                isActive: $showDetailView,
-                label: {
-                    EmptyView()
-                }
-            )
-        )
+        .sheet(isPresented: $showDetailView, content: {
+            NavigationView {
+                DetailLoadingView(coin: $selectedCoin)
+            }
+        })
         .refreshable {
             vm.reloadData()
         }
